@@ -1,4 +1,9 @@
 # RP_project / dynamic_planner
+<p align="center">
+<video controls width="720" loop muted playsinline>
+  <source src="./Dynamic_planner.mp4" type="video/mp4">
+</video>
+</p>
 
 This repository contains a small ROS 2 package `dynamic_planner` that implements a grid-based A* dynamic planner with an occupancy/distance map computed from LaserScan data. It was developed as part of a robotics project.
 
@@ -46,7 +51,7 @@ Note: the project already includes `install/local_setup.*` scripts in the `insta
 A launch file is available (`launch/dynamic_planner.launch.py`) — run with:
 
 ```bash
-source install/setup.bash    # or source ROS and then the overlay
+source install/setup.bash    
 ros2 launch dynamic_planner dynamic_planner.launch.py
 ```
 
