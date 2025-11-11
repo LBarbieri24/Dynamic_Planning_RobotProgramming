@@ -1,11 +1,8 @@
 # RP_project / dynamic_planner
-<p align="center">
-[![Demo (click to play)](assets/media/demo_thumbnail.png)](assets/media/Dynamic_planner.mp4)
-<br/>
-[Play demo video](assets/media/Dynamic_planner.mp4)
-</p>
+https://github.com/user-attachments/assets/7aa7e858-59f5-4a7a-ab44-02bf8ae1bd17
 
 This repository contains a small ROS 2 package `dynamic_planner` that implements a grid-based A* dynamic planner with an occupancy/distance map computed from LaserScan data. It was developed as part of a robotics project.
+
 
 ## Repository layout
 
