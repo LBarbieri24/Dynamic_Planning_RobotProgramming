@@ -27,7 +27,7 @@ public:
 private:
     // Heuristic for A*
     float heuristic(const Point& a, const Point& b, float resolution) const;
-    float distanceToCost(float distance, float resolution) const;
+    float distanceToCost(float distance) const;
 };
 
 } // namespace dynamic_planner

@@ -1,5 +1,3 @@
-// Defines the ROS2 node: subscribers, publishers, maps, and planner
-
 #pragma once
 
 //Includes all core ROS2 C++ functionality
@@ -41,6 +39,8 @@ private:
     Map local_map_;
     // takes the map and finds a path between two points
     Planner planner_;
+    // Store the previous path to retain waypoints
+    std::vector<Point> previous_path_;
 
     // Subscribe to LaserScan
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
@@ -54,7 +54,7 @@ private:
 
     rclcpp::TimerBase::SharedPtr planning_timer_;
 
-    std::vector<Point> previous_path_;
+    
 };
 
 } // namespace dynamic_planner
