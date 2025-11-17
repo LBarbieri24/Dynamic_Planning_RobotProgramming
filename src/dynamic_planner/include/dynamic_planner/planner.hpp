@@ -16,7 +16,6 @@ struct Point {
 
 class Planner {
 public:
-    // Our class hasn't any data but only functions so I just create an empty constructor automatically
     Planner() = default;
 
     // A* function

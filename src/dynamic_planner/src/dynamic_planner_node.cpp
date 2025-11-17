@@ -10,13 +10,10 @@ DynamicPlannerNode::DynamicPlannerNode()
   previous_path_()                            // Initialize empty vector for storing the path from last iteration
 {
     // TF (Transform) system: Tracks coordinate transformations between robot frames
-    // std::make_shared: Creates a shared pointer (smart pointer that auto-deletes when no longer used)
     tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
     // SUBSCRIBER: Listens to laser scan data from the robot
-    // std::bind: Creates a callback function that will call scanCallback when data arrives
-    // std::placeholders::_1: Placeholder for the message argument that ROS will pass
     scan_sub_ = create_subscription<sensor_msgs::msg::LaserScan>(
         "/scan",                                                    
         10,                                                         
@@ -135,7 +132,7 @@ void DynamicPlannerNode::planningTimerCallback()
     float dy_to_goal = goal_wy - ry;
     float dist_to_goal = std::sqrt(dx_to_goal * dx_to_goal + dy_to_goal * dy_to_goal);
 
-    int KEEP_STEPS;
+    size_t KEEP_STEPS;
     if (dist_to_goal > 2.0) {
         KEEP_STEPS = 10;  // Far from goal: keep 10 waypoints
     } else if (dist_to_goal > 1.0) {
@@ -220,7 +217,7 @@ void DynamicPlannerNode::planningTimerCallback()
         planning_start = future_path[KEEP_STEPS];
         
         RCLCPP_INFO(this->get_logger(), 
-                    "Keeping %d waypoints, replanning from grid=(%d,%d) world=(%.2f,%.2f)", 
+                    "Keeping %zu waypoints, replanning from grid=(%d,%d) world=(%.2f,%.2f)", 
                     KEEP_STEPS, planning_start.x, planning_start.y,
                     global_map_.gridToWorldX(planning_start.x),
                     global_map_.gridToWorldY(planning_start.y));

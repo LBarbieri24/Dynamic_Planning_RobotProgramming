@@ -62,8 +62,7 @@ struct PointHash {
 };
 
 
-// EQUALITY OPERATOR: Check if two points are the same
-// Needed for unordered_map to compare keys
+// Equality operator for Point struct (needed for unordered_map)
 bool operator==(const Point& a, const Point& b) {
     return a.x == b.x && a.y == b.y;
 }
@@ -113,22 +112,18 @@ std::vector<Point> Planner::plan(const Map& map,
     };
 
     // PRIORITY QUEUE (Open Set): Nodes to explore, sorted by f-score
-    // std::priority_queue: Heap data structure (always gives smallest f first)
-    // decltype(cmp): Get the type of the lambda function
     std::priority_queue<Node, std::vector<Node>, decltype(cmp)> open(cmp);
 
     // HASH MAPS: Store data associated with each Point
-    // unordered_map = hash table (O(1) average lookup time)
     std::unordered_map<Point, float, PointHash> g_score;      // Best known cost to reach each point
     std::unordered_map<Point, Point, PointHash> came_from;    // Parent pointer for path reconstruction
 
     // Initialize start node
     g_score[start] = 0.0f;
+    // Inside open we push the start node. Its f = heuristic(start, goal). g = 0. open is a min-heap priority queue which is sorted by f value.
     open.push({start, heuristic(start, goal, map.resolution()), 0.0f});
 
-    //-----------------------------------------------------------
-    // 8-CONNECTIVITY: Movement directions (including diagonals)
-    //-----------------------------------------------------------
+    // 8 connectivity directions
     // Order: Right, Left, Down, Up, DownRight, DownLeft, UpRight, UpLeft
     const int dx[8] = {1, -1,  0,  0,  1, -1,  1, -1};
     const int dy[8] = {0,  0,  1, -1,  1,  1, -1, -1};
@@ -147,10 +142,10 @@ std::vector<Point> Planner::plan(const Map& map,
     while (!open.empty()) {
         // Get node with lowest f-score
         Node current = open.top();
-        open.pop();
+        open.pop(); // Remove from open set the node we are expanding
 
         // OPTIMIZATION: Skip if we already found a better path to this point
-        if (g_score.count(current.p) && current.g > g_score[current.p]) {
+        if (g_score.count(current.p) && current.g > g_score[current.p]) { //.p stands for the Point inside the Node struct
             continue;
         }
 

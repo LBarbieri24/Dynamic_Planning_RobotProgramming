@@ -16,7 +16,7 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# Start of what we added after the package creation
+
 include_directories(include) 
 
 add_library(dynamic_planner_lib

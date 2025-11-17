@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <cmath>
-#include <algorithm>   // for std::fill, std::min
-#include <limits>      // for infinity
-#include <queue>       // for BFS
+#include <algorithm>   
+#include <limits>      
+#include <queue>       
 #include <rclcpp/rclcpp.hpp>
 
 namespace dynamic_planner {
@@ -16,16 +16,15 @@ public:
     void clear();
 
     // Converts a LaserScan to a local DISTANCE map
-    // Each cell contains the distance to the nearest obstacle
     void updateFromScan(const std::vector<float>& ranges,
                         float angle_min,
                         float angle_increment,
                         float range_max_val);
 
-    // Merges the local map into the global map using min()
+    // Merges the local map into the global map 
     void fuse(const Map& local, int robot_gx, int robot_gy);
 
-    // Computes distance transform from occupied cells
+    // Compute distance from each free cell to nearest obstacle
     void computeDistanceTransform();
 
     // Get/set distance values
